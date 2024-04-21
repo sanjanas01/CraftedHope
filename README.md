@@ -84,7 +84,3 @@ To get started with CraftedHope, follow these steps:
 
 
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
