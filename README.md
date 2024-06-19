@@ -78,7 +78,7 @@ To get started with CraftedHope, follow these steps:
 
 ## Contributors
 
-- Sanjana Sudarsan https://github.com/SOS-5
+- Sanjana Sudarsan https://github.com/sanjanas01
 - Swetha Sriram https://github.com/SwethaSS0420
 - Lohithaa K M https://github.com/Lohi14
 
