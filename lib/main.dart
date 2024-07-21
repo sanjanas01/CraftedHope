@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sls/wrapper.dart';
-import 'login.dart';
-import 'about.dart';
-import 'donate.dart';
-import 'dform.dart';
+import 'package:provider/provider.dart';  
+import 'Cart/cart_provider.dart';
+import 'Account/login.dart';
+import 'Home/about.dart';
+import 'donate/donate.dart';
+import 'donate/dform.dart';
 import 'Shop.dart';
-import 'recycle.dart';
-import 'rform.dart';
-import 'thrift.dart';
-import 'sell.dart';
-import 'buy.dart';
-import 'logout.dart';
-import 'pwd.dart';
-import 'mydetails.dart';
+import 'Recycle/recycle.dart';
+import 'Recycle/rform.dart';
+import 'Thrift/thrift.dart';
+import 'Account/logout.dart';
+import 'Account/pwd.dart';
+import 'Account/mydetails.dart';
+import 'Cart/cart.dart';
+import 'Cart/cart_provider.dart';
+import 'chat.dart';
+import '../Account/landing.dart';
 
-void main() async{
+
+void main() async { 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); 
-  runApp(MyApp());
+  await Firebase.initializeApp();
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartProvider(),
+      child: MyApp(),
+    ),
+    
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,55 +37,42 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CraftedHope',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: '/', // Set initial route
       routes: {
-        // '/': (context) => SplashScreen(),
-         '/about_us': (context) => AboutUsPage(),
+        '/': (context) => SplashScreen(),
+        '/about_us': (context) => AboutUsPage(),
         '/Donate': (context) => Donate(),
-        '/dform': (context) => dform(),
-        '/shop': (context) => shop(),
+        '/dform': (context) => DonationForm(),
+        '/shop': (context) => Shop(),
         '/recycle': (context) => rec(),
         '/rform': (context) => rform(),
         '/thrift': (context) => ThriftPage(),
         '/logout': (context) => LogoutPage(),
         '/myaccount': (context) => MyDetailsPage(),
         '/login': (context) => LoginPage(),
+        '/cart': (context) => CartPage(),
+        '/thrift': (context) => ThriftPage(),
+        '/landing':(context) => LandingPage(),
       },
-      home: Wrapper(),
     );
   }
 }
 
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Navigate to the login page after a delay
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (BuildContext context) => LoginPage(),
-        ),
-      );
-    });
-  }
-
+class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacementNamed('/landing');
+    });
+
     return Scaffold(
       body: Center(
         child: Image.asset(
-          'assets/logo.png', // Adjust the path as per your asset location
-          height: 200, // Adjust the height as needed
+          'assets/logo.png', // Path to your logo image
         ),
       ),
     );
